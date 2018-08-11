@@ -1,0 +1,77 @@
+GeometryInput vertexShader(VertexInput input)
+{
+	GeometryInput rv;
+
+	float4 posInScreenSpace = float4(input.position.xy, 0, 1);
+	float2 dimensionsInScreenSpace = input.dimensions;
+
+	posInScreenSpace.x /= 1600.0f;
+	posInScreenSpace.y /= 900.0f;
+
+	posInScreenSpace.x *= 2;
+	posInScreenSpace.y *= -2;
+
+	posInScreenSpace.x -= 1;
+	posInScreenSpace.y += 1;
+
+	dimensionsInScreenSpace.x /= 1600.0f;
+	dimensionsInScreenSpace.y /= 900.0f;
+
+	rv.position = posInScreenSpace;
+	rv.color = input.color;
+	rv.textureRect = input.textureRect;
+	rv.rotation = input.rotation;
+	rv.dimensions = dimensionsInScreenSpace;
+	rv.scale = input.scale;
+	rv.trash = input.trash;
+
+	return rv;
+}
+
+[maxvertexcount(4)]
+void geometryShader(point GeometryInput input[1], inout TriangleStream<PixelInput> output)
+{
+	float2 dimensions = input[0].scale * input[0].dimensions;
+
+	const float4 offset[4] = 
+	{
+		{ -dimensions.x, dimensions.y, 0 , 0 },
+		{ dimensions.x, dimensions.y, 0 , 0 },
+		{ -dimensions.x, -dimensions.y, 0 , 0 },
+		{ dimensions.x, -dimensions.y, 0 , 0 }
+	};
+
+	float2 topLeft = input[0].textureRect.xy;
+	float2 bottomRight = input[0].textureRect.zw;
+
+	const float2 uv[4] = 
+	{
+		{ topLeft.x, topLeft.y },
+		{ bottomRight.x, topLeft.y },
+		{ topLeft.x, bottomRight.y },
+		{ bottomRight.x, bottomRight.y }
+	};
+
+	for (int i = 0; i < 4; ++i)
+	{
+		PixelInput vertex;
+		vertex.position = float4(RotateAroundPoint(input[0].position + offset[i], input[0].position, input[0].rotation).xy, 0, 1);
+		vertex.color = input[0].color;
+		vertex.uv = uv[i];
+		vertex.trash = input[0].trash;
+		output.Append(vertex);
+	}
+	output.RestartStrip();
+}
+
+PixelOutput pixelShader(PixelInput input)
+{
+	PixelOutput rv;
+
+	float4 texColor = instanceTexture.Sample(instanceSampler, input.uv.xy);
+	rv.color = texColor * input.color;
+	//rv.color = input.color;
+	//rv.color = float4(input.uv.x, input.uv.y, input.uv.y, 1);
+	return rv;
+}
+
