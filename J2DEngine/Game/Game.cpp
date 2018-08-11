@@ -47,6 +47,11 @@ void CGame::Update(float aDT)
 		HandleTilingBackgrounds(aDT);
 		myPlayer.Update(aDT);
 		myPipeSpawner.Update(aDT);
+
+		for (auto& spritePairs : myOtherPlayers)
+		{
+			spritePairs.second.HandleAnimation(aDT);
+		}
 		break;
 	case CGame::EGameState::Paused:
 		break;
@@ -92,15 +97,15 @@ void CGame::Render()
 
 void CGame::AddOtherPlayer(unsigned long aID)
 {
-	CSprite newSprite;
-	newSprite.Load("sprites/player.png");
+	CPlayer newPlayer;
+	newPlayer.Init();
 
-	myOtherPlayers.insert(std::make_pair(aID, newSprite));
+	myOtherPlayers.insert(std::make_pair(aID, newPlayer));
 }
 
 void CGame::UpdateOtherPlayer(unsigned long aID, const CVector2f & aPosition, float aRotation)
 {
-	CSprite& sprite = myOtherPlayers[aID];
+	CSprite& sprite = myOtherPlayers[aID].GetSprite();
 	sprite.SetPosition(aPosition);
 	sprite.SetRotation(aRotation);
 }

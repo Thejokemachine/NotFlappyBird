@@ -13,6 +13,8 @@ public:
 
 	CSprite& GetSprite();
 
+	void HandleAnimation(float aDT);
+
 private:
 	CSprite mySprite;
 	float myFallSpeed;
@@ -21,6 +23,5 @@ private:
 	float myAnimationSwitchTimer;
 	bool myAnimationToggle;
 
-	void HandleAnimation(float aDT);
 };
 

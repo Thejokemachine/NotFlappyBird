@@ -36,7 +36,7 @@ private:
 	CPlayer myPlayer;
 	CPipeSpawner myPipeSpawner;
 
-	std::unordered_map<unsigned long, CSprite> myOtherPlayers;
+	std::unordered_map<unsigned long, CPlayer> myOtherPlayers;
 
 	Network::CClient myClient;
 

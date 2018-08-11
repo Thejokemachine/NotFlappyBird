@@ -86,7 +86,7 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 		SClient newClient;
 		newClient.myName = aName;
 		newClient.myID = myClients.size();
-		newClient.mySprite.Load("sprites/player.dds");
+		//newClient.mySprite.Load("sprites/player.dds");
 
 		myClients.insert(std::make_pair(ID, newClient));
 		PRINT(aName + " connected!");
@@ -123,13 +123,14 @@ void Network::CServer::SendPlayerData()
 	{
 		for (auto& client2 : myClients)
 		{
-			if (client1.first == client2.first)
+			if (client1.second.myID == client2.second.myID)
 				continue;
 
 			SNetMessagePlayerDataData data;
 			data.myTargetID = client1.second.myID;
 			data.myPosition = client2.second.mySprite.GetPosition();
 			data.myRotation = client2.second.mySprite.GetRotation();
+			data.myID = client2.second.myID;
 
 			myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
 		}

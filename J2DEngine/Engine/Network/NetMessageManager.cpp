@@ -15,7 +15,7 @@ void Network::CNetMessageManager::Flush()
 {
 	for (CNetMessage*& msg : myMessages)
 	{
-		if (myAddresses.size() <= msg->GetData().myTargetID)
+		if (myAddresses.size() <= msg->GetBaseData().myTargetID)
 		{
 			PRINT("Tried sending a message to a non-existing recipient.");
 			continue;
@@ -23,7 +23,7 @@ void Network::CNetMessageManager::Flush()
 
 		msg->Pack();
 
-		sockaddr_in address = myAddresses[msg->GetData().myTargetID];
+		sockaddr_in address = myAddresses[msg->GetBaseData().myTargetID];
 		int bytes = sendto(mySocket, msg->GetBufferStart(), msg->GetBufferSize(), 0, (sockaddr*)&address, sizeof(address));
 	}
 

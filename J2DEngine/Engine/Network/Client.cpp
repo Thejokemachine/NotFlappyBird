@@ -78,10 +78,17 @@ void Network::CClient::Update()
 			msg.ReceiveData(buffer, sizeof(SNetMessageData));
 			msg.Unpack();
 
-			myGamePtr->AddOtherPlayer(msg.GetData().myID);
-			PRINT("Added a player with ID: " + std::to_string(msg.GetData().myID));
-
+			myGamePtr->AddOtherPlayer(msg.GetBaseData().myID);
+			PRINT("Added a player with ID: " + std::to_string(msg.GetBaseData().myID));
 			break;
+		}
+		case ENetMessageType::PlayerData:
+		{
+			CNetMessagePlayerData msg;
+			msg.ReceiveData(buffer, sizeof(SNetMessagePlayerDataData));
+			msg.Unpack();
+
+			myGamePtr->UpdateOtherPlayer(msg.GetBaseData().myID, msg.GetData().myPosition, msg.GetData().myRotation);
 		}
 		}
 	}
@@ -102,6 +109,7 @@ void Network::CClient::SendPlayerData()
 	SNetMessagePlayerDataData data;
 	data.myPosition = myGamePtr->GetPlayer().GetSprite().GetPosition();
 	data.myRotation = myGamePtr->GetPlayer().GetSprite().GetRotation();
+	data.myTargetID = 0;
 
 	myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
 }

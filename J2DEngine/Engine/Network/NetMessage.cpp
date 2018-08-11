@@ -7,7 +7,7 @@ namespace Network
 		myData = aData;
 	}
 
-	SNetMessageData& CNetMessage::GetData()
+	SNetMessageData& CNetMessage::GetBaseData()
 	{
 		return myData;
 	}

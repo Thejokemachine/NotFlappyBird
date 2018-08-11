@@ -136,6 +136,6 @@ void CSpriteRenderer::Render(std::vector<SSpriteRenderCommand>& aSpritesToRender
 
 		context->PSSetShaderResources(0, 1, &sprite.texture.myTexture);
 
-		context->Draw(1, 0);
+  		context->Draw(1, 0);
 	}
 }

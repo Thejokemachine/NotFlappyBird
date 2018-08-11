@@ -22,7 +22,7 @@ namespace Network
 	public:
 
 		void Create(SNetMessageData aData);
-		SNetMessageData& GetData();
+		SNetMessageData& GetBaseData();
 
 		void Pack();
 		void Unpack();
