@@ -103,10 +103,18 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 			if (client.first == ID)
 				continue;
 
+			// New to existing
 			SNetMessageData newPlayerMessage;
 			newPlayerMessage.myTargetID = client.second.myID;
 			newPlayerMessage.myType = ENetMessageType::NewPlayer;
 			newPlayerMessage.myID = newClient.myID;
+
+			myMessageManager.CreateMessage<CNetMessage>(newPlayerMessage);
+
+			// Existing to new
+			newPlayerMessage.myTargetID = newClient.myID;
+			newPlayerMessage.myType = ENetMessageType::NewPlayer;
+			newPlayerMessage.myID = client.second.myID;
 
 			myMessageManager.CreateMessage<CNetMessage>(newPlayerMessage);
 		}
