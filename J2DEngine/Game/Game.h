@@ -17,6 +17,8 @@ public:
 	void AddOtherPlayer(unsigned long aID);
 	void UpdateOtherPlayer(unsigned long aID, const CVector2f& aPosition, float aRotation);
 
+	CPlayer& GetPlayer();
+
 private:
 
 	enum class EGameState

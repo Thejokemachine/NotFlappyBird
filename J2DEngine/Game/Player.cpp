@@ -42,6 +42,11 @@ void CPlayer::Render()
 	mySprite.Render();
 }
 
+CSprite & CPlayer::GetSprite()
+{
+	return mySprite;
+}
+
 void CPlayer::HandleAnimation(float aDT)
 {
 	myAnimationSwitchTimer += aDT;

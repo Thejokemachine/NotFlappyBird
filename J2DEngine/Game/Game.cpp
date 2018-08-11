@@ -93,7 +93,7 @@ void CGame::Render()
 void CGame::AddOtherPlayer(unsigned long aID)
 {
 	CSprite newSprite;
-	newSprite.Load("player.png");
+	newSprite.Load("sprites/player.png");
 
 	myOtherPlayers.insert(std::make_pair(aID, newSprite));
 }
@@ -103,6 +103,11 @@ void CGame::UpdateOtherPlayer(unsigned long aID, const CVector2f & aPosition, fl
 	CSprite& sprite = myOtherPlayers[aID];
 	sprite.SetPosition(aPosition);
 	sprite.SetRotation(aRotation);
+}
+
+CPlayer & CGame::GetPlayer()
+{
+	return myPlayer;
 }
 
 void CGame::HandleTilingBackgrounds(float aDT)

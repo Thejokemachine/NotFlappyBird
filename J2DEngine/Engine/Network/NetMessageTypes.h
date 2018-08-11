@@ -9,5 +9,6 @@ namespace Network
 		Ping,
 		Connect,
 		NewPlayer,
+		PlayerData
 	};
 }

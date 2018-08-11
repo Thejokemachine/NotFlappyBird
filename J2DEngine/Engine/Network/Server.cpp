@@ -25,6 +25,8 @@ void Network::CServer::Update()
 {
 	CConnectionBase::Update();
 
+	SendPlayerData();
+
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{
 		char* buffer = rec.myBuffer;
@@ -56,6 +58,16 @@ void Network::CServer::Update()
 			AddClient(rec.myFromAddress, msg.GetData().myName.ToString());
 			break;
 		}
+		case ENetMessageType::PlayerData:
+		{
+			CNetMessagePlayerData msg;
+			msg.ReceiveData(buffer, sizeof(SNetMessagePlayerDataData));
+			msg.Unpack();
+			CSprite& sprite = myClients[rec.myFromAddress.sin_addr.S_un.S_addr].mySprite;
+			sprite.SetPosition(msg.GetData().myPosition);
+			sprite.SetRotation(msg.GetData().myRotation);
+			break;
+		}
 		}
 	}
 }
@@ -74,6 +86,7 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 		SClient newClient;
 		newClient.myName = aName;
 		newClient.myID = myClients.size();
+		newClient.mySprite.Load("sprites/player.dds");
 
 		myClients.insert(std::make_pair(ID, newClient));
 		PRINT(aName + " connected!");
@@ -101,5 +114,24 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 	else
 	{
 		PRINT("Tried to add an already existing client.");
+	}
+}
+
+void Network::CServer::SendPlayerData()
+{
+	for (auto& client1 : myClients)
+	{
+		for (auto& client2 : myClients)
+		{
+			if (client1.first == client2.first)
+				continue;
+
+			SNetMessagePlayerDataData data;
+			data.myTargetID = client1.second.myID;
+			data.myPosition = client2.second.mySprite.GetPosition();
+			data.myRotation = client2.second.mySprite.GetRotation();
+
+			myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
+		}
 	}
 }

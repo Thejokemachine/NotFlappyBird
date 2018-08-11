@@ -18,6 +18,9 @@ namespace Network
 		void BindGame(CGame& aGame);
 
 	private:
+
+		void SendPlayerData();
+
 		sockaddr_in myLocalAddress;
 		sockaddr_in myServerAddress;
 

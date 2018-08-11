@@ -4,3 +4,4 @@
 #include "NetMessageChat.h"
 #include "NetMessagePing.h"
 #include "NetMessageConnect.h"
+#include "NetMessagePlayerData.h"

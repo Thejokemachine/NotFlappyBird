@@ -11,6 +11,8 @@ public:
 	void Update(float aDT);
 	void Render();
 
+	CSprite& GetSprite();
+
 private:
 	CSprite mySprite;
 	float myFallSpeed;

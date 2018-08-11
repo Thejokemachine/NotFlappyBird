@@ -18,7 +18,7 @@ void Network::CClient::Start()
 		return;
 	}
 
-	std::string serverIP = "127.0.0.1";
+	std::string serverIP = "88.83.34.36";
 	unsigned short port = 54000;
 
 	inet_pton(AF_INET, serverIP.c_str(), &myServerAddress.sin_addr.s_addr);
@@ -38,6 +38,8 @@ void Network::CClient::Start()
 void Network::CClient::Update()
 {
 	CConnectionBase::Update();
+
+	SendPlayerData();
 
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{
@@ -93,4 +95,13 @@ void Network::CClient::Stop()
 void Network::CClient::BindGame(CGame& aGame)
 {
 	myGamePtr = &aGame;
+}
+
+void Network::CClient::SendPlayerData()
+{
+	SNetMessagePlayerDataData data;
+	data.myPosition = myGamePtr->GetPlayer().GetSprite().GetPosition();
+	data.myRotation = myGamePtr->GetPlayer().GetSprite().GetRotation();
+
+	myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
 }
