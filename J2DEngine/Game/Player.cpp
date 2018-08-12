@@ -24,17 +24,23 @@ void CPlayer::Update(float aDT)
 
 	CInputManager& input = CInputManager::GetInstance();
 
-	if (input.IsKeyPressed(EKeyCode::Space))
+	if (input.IsKeyPressed(EKeyCode::Space) && mySprite.GetPosition().y > 0)
 	{
 		myFallSpeed = -1500.f;
 		myRotation = -1.f;
 	}
 
 	myFallSpeed += 4000.f * aDT;
+	myFallSpeed = Math::Min(myFallSpeed, 4000.f);
 	myRotation = Math::Lerp(myRotation, 1.57f, aDT / 1.f);
 
 	mySprite.Move(0.f, myFallSpeed * aDT);
 	mySprite.SetRotation(myRotation);
+
+	if (mySprite.GetPosition().y > 1000.f)
+	{
+		mySprite.SetPosition(mySprite.GetPosition().x, 1000.f);
+	}
 }
 
 void CPlayer::Render()

@@ -132,6 +132,12 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 			myMessageManager.CreateMessage<CNetMessage>(newPlayerMessage);
 		}
 	}
+	else if (myClients[ID].myConnected == false)
+	{
+		myClients[ID].myConnected = true;
+		myClients[ID].myTimeSinceLatestPing = 0;
+		PRINT(aName + " reconnected!");
+	}
 	else
 	{
 		PRINT("Tried to add an already existing client.");
@@ -159,13 +165,21 @@ void Network::CServer::SendPlayerData()
 			myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
 		}
 	}
-	PRINT("Sent player data");
 }
 
 void Network::CServer::ReceivePing(unsigned long aID)
 {
-	myClients[aID].myTimeSinceLatestPing = 0.f;
-	PRINT("Received ping from " + std::to_string(myClients[aID].myID));
+	SClient& client = myClients[aID];
+	client.myTimeSinceLatestPing = 0.f;
+	if (client.myConnected == false)
+	{
+		client.myConnected = true;
+		PRINT(client.myName + " reconnected!");
+	}
+	else
+	{
+		PRINT("Received ping from " + std::to_string(myClients[aID].myID));
+	}
 }
 
 void Network::CServer::HandleClients()
