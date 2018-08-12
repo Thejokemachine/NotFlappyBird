@@ -34,6 +34,8 @@ namespace Network
 		void HandleClients();
 		void DisconnectClient(SClient& aClientToDisconnect);
 
+		void SpawnPipe();
+
 		unsigned long ConvertAddressToID(const sockaddr_in& aAddress);
 
 		sockaddr_in myLocalAddress;
@@ -41,5 +43,6 @@ namespace Network
 		std::unordered_map<unsigned long, SClient> myClients;
 
 		CTimedEvent mySendPlayerDataTimer;
+		CTimedEvent myPipeSpawnTimer;
 	};
 }

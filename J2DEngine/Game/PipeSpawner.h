@@ -7,9 +7,10 @@ public:
 	CPipeSpawner();
 	~CPipeSpawner();
 
-	void Init();
+	void Init(bool aShouldSpawn);
 	void Update(float aDT);
 	void Render();
+	void AddPipePair(const CVector2f& aPosition);
 
 private:
 	std::vector<CSprite> myPipeBuffer;
@@ -17,6 +18,7 @@ private:
 
 	float mySpawnTimer;
 	float mySpawnFrequency;
+	bool myShouldSpawn;
 
 	void SpawnPipe();
 };

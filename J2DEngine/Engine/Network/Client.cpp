@@ -93,6 +93,16 @@ void Network::CClient::Update()
 			msg.Unpack();
 
 			myGamePtr->UpdateOtherPlayer(msg.GetBaseData().myID, msg.GetData().myPosition, msg.GetData().myRotation);
+			break;
+		}
+		case ENetMessageType::NewPipe:
+		{
+			CNetMessagePosition msg;
+			msg.ReceiveData(buffer, sizeof(SNetMessagePositionData));
+			msg.Unpack();
+
+			myGamePtr->AddPipe(msg.GetData().myPosition);
+			break;
 		}
 		}
 	}

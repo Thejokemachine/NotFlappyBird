@@ -129,6 +129,7 @@
     <ClCompile Include="Network\NetMessageConnect.cpp" />
     <ClCompile Include="Network\NetMessageManager.cpp" />
     <ClCompile Include="Network\NetMessagePlayerData.cpp" />
+    <ClCompile Include="Network\NetMessagePosition.cpp" />
     <ClCompile Include="Network\Server.cpp" />
     <ClCompile Include="OpaqueBuffer.cpp" />
     <ClCompile Include="Utilities\ConstantBuffer.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Base.h" />
     <ClInclude Include="Engine\ShaderTypes.h" />
     <ClInclude Include="Network\Client.h" />
+    <ClInclude Include="Network\NetMessagePosition.h" />
     <ClInclude Include="Network\CommonNetworkIncludes.h" />
     <ClInclude Include="Network\ConnectionBase.h" />
     <ClInclude Include="Network\NetMessage.h" />

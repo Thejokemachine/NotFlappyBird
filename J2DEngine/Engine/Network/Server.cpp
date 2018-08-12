@@ -1,6 +1,7 @@
 #include "Server.h"
 #include <string>
 #include "Utilities/Time.h"
+#include "../Game/LayerSpeeds.h"
 
 void Network::CServer::Start()
 {
@@ -24,6 +25,9 @@ void Network::CServer::Start()
 
 	mySendPlayerDataTimer.Init(CTimedEvent::EType::Repeat, FREQ_PLAYERDATA, [this]() { SendPlayerData(); });
 	mySendPlayerDataTimer.Start();
+
+	myPipeSpawnTimer.Init(CTimedEvent::EType::Repeat, 1.5f, [this]() { SpawnPipe(); });
+	myPipeSpawnTimer.Start();
 }
 
 void Network::CServer::Update()
@@ -33,6 +37,7 @@ void Network::CServer::Update()
 	float dt = CTime::GetInstance().GetDeltaTime();
 
 	mySendPlayerDataTimer.Update(dt);
+	myPipeSpawnTimer.Update(dt);
 
 	HandleClients();
 
@@ -186,6 +191,25 @@ void Network::CServer::DisconnectClient(SClient & aClientToDisconnect)
 	aClientToDisconnect.myConnected = false;
 
 	PRINT("Client " + std::to_string(aClientToDisconnect.myID) + " disconnected.");
+}
+
+void Network::CServer::SpawnPipe()
+{
+	float offset = 450.f;
+	offset += (rand() % 200) * pow(-1, rand());
+
+	
+	for (auto& clientPair : myClients)
+	{
+		SNetMessagePositionData position;
+		position.myPosition = CVector2f(1750.f, offset);
+		position.myTargetID = clientPair.second.myID;
+		position.myType = ENetMessageType::NewPipe;
+
+		myMessageManager.CreateMessage<CNetMessagePosition>(position);
+	}
+
+	PRINT("Spawned pipe");
 }
 
 unsigned long Network::CServer::ConvertAddressToID(const sockaddr_in & aAddress)

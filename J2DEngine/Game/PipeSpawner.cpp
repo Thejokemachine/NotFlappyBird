@@ -11,7 +11,7 @@ CPipeSpawner::~CPipeSpawner()
 {
 }
 
-void CPipeSpawner::Init()
+void CPipeSpawner::Init(bool aShouldSpawn)
 {
 	for (int i = 0; i < 5; ++i)
 	{
@@ -28,12 +28,15 @@ void CPipeSpawner::Init()
 
 void CPipeSpawner::Update(float aDT)
 {
-	mySpawnTimer += aDT;
-
-	if (mySpawnTimer >= mySpawnFrequency)
+	if (myShouldSpawn)
 	{
-		mySpawnTimer = 0.f;
-		SpawnPipe();
+		mySpawnTimer += aDT;
+
+		if (mySpawnTimer >= mySpawnFrequency)
+		{
+			mySpawnTimer = 0.f;
+			SpawnPipe();
+		}
 	}
 
 	for (CSprite& sprite : myPipeBuffer)
@@ -50,16 +53,21 @@ void CPipeSpawner::Render()
 	}
 }
 
-void CPipeSpawner::SpawnPipe()
+void CPipeSpawner::AddPipePair(const CVector2f & aPosition)
 {
-	float offset = 450.f;
-	offset += (rand() % 200) * pow(-1, rand());
-
-	myPipeBuffer[myAvailableIndex].SetPosition(1750, offset);
+	myPipeBuffer[myAvailableIndex].SetPosition(aPosition.x, aPosition.y);
 
 	myAvailableIndex++;
 	if (myAvailableIndex == myPipeBuffer.size())
 	{
 		myAvailableIndex = 0;
 	}
+}
+
+void CPipeSpawner::SpawnPipe()
+{
+	float offset = 450.f;
+	offset += (rand() % 200) * pow(-1, rand());
+
+	AddPipePair({ 1750.f, offset });
 }

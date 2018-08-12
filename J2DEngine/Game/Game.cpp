@@ -24,7 +24,7 @@ void CGame::Init()
 	myBackgroundSpeed = LAYER_BACKGROUND;
 
 	myPlayer.Init();
-	myPipeSpawner.Init();
+	myPipeSpawner.Init(false);
 
 	myClient.Start();
 	myClient.BindGame(*this);
@@ -111,6 +111,14 @@ void CGame::UpdateOtherPlayer(unsigned long aID, const CVector2f & aPosition, fl
 	CSprite& sprite = myOtherPlayers[aID].GetSprite();
 	sprite.SetPosition(aPosition);
 	sprite.SetRotation(aRotation);
+}
+
+void CGame::AddPipe(const CVector2f & aWhere)
+{
+	if (myGameState == EGameState::InGame)
+	{
+		myPipeSpawner.AddPipePair(aWhere);
+	}
 }
 
 CPlayer & CGame::GetPlayer()
