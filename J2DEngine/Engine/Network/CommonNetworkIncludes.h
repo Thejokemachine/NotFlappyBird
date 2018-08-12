@@ -16,3 +16,5 @@
 
 #define FREQ_PLAYERDATA (1.f / 60.f)
 #define FREQ_PING		1.f
+
+#define PING_TIMEOUT	5.f

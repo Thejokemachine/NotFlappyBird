@@ -1,6 +1,7 @@
 #include "Client.h"
 #include "NetMessageChat.h"
 #include "../Game/Game.h"
+#include "Utilities/Time.h"
 
 void Network::CClient::Start()
 {
@@ -40,6 +41,12 @@ void Network::CClient::Update()
 	CConnectionBase::Update();
 
 	SendPlayerData();
+	myPingTimer += CTime::GetInstance().GetDeltaTime();
+	if (myPingTimer > FREQ_PING)
+	{
+		myPingTimer = 0.f;
+		PingServer();
+	}
 
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{
@@ -58,9 +65,6 @@ void Network::CClient::Update()
 		}
 		case Network::ENetMessageType::Ping:
 		{
-			CNetMessagePing msg;
-			msg.ReceiveData(buffer, sizeof(SNetMessagePingData));
-			msg.Unpack();
 			PRINT("Received ping from server");
 			break;
 		}
@@ -112,4 +116,13 @@ void Network::CClient::SendPlayerData()
 	data.myTargetID = 0;
 
 	myMessageManager.CreateMessage<CNetMessagePlayerData>(data);
+}
+
+void Network::CClient::PingServer()
+{
+	SNetMessageData ping;
+	ping.myTargetID = 0;
+	ping.myType = ENetMessageType::Ping;
+
+	myMessageManager.CreateMessage<CNetMessage>(ping);
 }

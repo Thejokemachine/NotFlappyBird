@@ -2,6 +2,7 @@
 #include "ConnectionBase.h"
 #include <unordered_map>
 #include "../Graphics/Sprite.h"
+#include "Utilities/TimedEvent.h"
 
 namespace Network
 {
@@ -17,21 +18,28 @@ namespace Network
 
 	private:
 
-		void AddClient(sockaddr_in aAddress, const std::string& aName);
-		void SendPlayerData();
-
-		sockaddr_in myLocalAddress;
-
 		struct SClient
 		{
 			std::string myName;
 			unsigned short myID;
+			float myTimeSinceLatestPing;
+			bool myConnected;
 
 			CSprite mySprite;
 		};
 
+		void AddClient(sockaddr_in aAddress, const std::string& aName);
+		void SendPlayerData();
+		void ReceivePing(unsigned long aID);
+		void HandleClients();
+		void DisconnectClient(SClient& aClientToDisconnect);
+
+		unsigned long ConvertAddressToID(const sockaddr_in& aAddress);
+
+		sockaddr_in myLocalAddress;
+
 		std::unordered_map<unsigned long, SClient> myClients;
 
-		float mySendDataTimer;
+		CTimedEvent mySendPlayerDataTimer;
 	};
 }

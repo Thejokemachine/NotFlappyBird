@@ -20,10 +20,13 @@ namespace Network
 	private:
 
 		void SendPlayerData();
+		void PingServer();
 
 		sockaddr_in myLocalAddress;
 		sockaddr_in myServerAddress;
 
 		CGame* myGamePtr;
+
+		float myPingTimer;
 	};
 }

@@ -89,13 +89,13 @@
     <ClCompile Include="Network\ConnectionBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Network\NetMessagePing.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Network\NetMessageConnect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Network\NetMessagePlayerData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities\TimedEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -226,9 +226,6 @@
     <ClInclude Include="Network\ConnectionBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Network\NetMessagePing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Network\NetMessages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -236,6 +233,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Network\NetMessagePlayerData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities\TimedEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
