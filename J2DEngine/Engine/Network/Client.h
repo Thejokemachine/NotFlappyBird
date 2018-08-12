@@ -1,5 +1,6 @@
 #pragma once
 #include "ConnectionBase.h"
+#include "Utilities/TimedEvent.h"
 
 class CGame;
 
@@ -27,6 +28,7 @@ namespace Network
 
 		CGame* myGamePtr;
 
-		float myPingTimer;
+		CTimedEvent mySendPlayerDataTimer;
+		CTimedEvent myPingTimer;
 	};
 }

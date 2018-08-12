@@ -11,8 +11,10 @@ void Network::CNetMessageManager::AddReceiver(sockaddr_in aAddress)
 	myAddresses.push_back(aAddress);
 }
 
-void Network::CNetMessageManager::Flush()
+unsigned int Network::CNetMessageManager::Flush()
 {
+	unsigned int bytesSent = 0;
+
 	for (CNetMessage*& msg : myMessages)
 	{
 		if (myAddresses.size() <= msg->GetBaseData().myTargetID)
@@ -24,8 +26,10 @@ void Network::CNetMessageManager::Flush()
 		msg->Pack();
 
 		sockaddr_in address = myAddresses[msg->GetBaseData().myTargetID];
-		int bytes = sendto(mySocket, msg->GetBufferStart(), msg->GetBufferSize(), 0, (sockaddr*)&address, sizeof(address));
+		bytesSent += sendto(mySocket, msg->GetBufferStart(), msg->GetBufferSize(), 0, (sockaddr*)&address, sizeof(address));
 	}
 
 	myMessages.clear();
+
+	return bytesSent;
 }

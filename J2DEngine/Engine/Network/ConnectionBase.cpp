@@ -1,4 +1,5 @@
 #include "ConnectionBase.h"
+#include "Utilities/Time.h"
 
 void Network::CConnectionBase::Start()
 {
@@ -44,7 +45,15 @@ void Network::CConnectionBase::Update()
 		myReceivedBuffer.back().myFromAddress = from;
 	}
 
-	myMessageManager.Flush();
+	mySentThisSecond += myMessageManager.Flush();
+	mySentTimer += CTime::GetInstance().GetDeltaTime();
+
+	if (mySentTimer >= 1.0f)
+	{
+		mySentTimer = 0.f;
+		PRINT(std::to_string(static_cast<float>(mySentThisSecond) / 1000.f) + "kb sent this second.");
+		mySentThisSecond = 0;
+	}
 }
 
 void Network::CConnectionBase::Stop()

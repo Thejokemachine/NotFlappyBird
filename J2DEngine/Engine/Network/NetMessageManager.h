@@ -14,7 +14,7 @@ namespace Network
 
 		void Init(SOCKET aSocket);
 		void AddReceiver(sockaddr_in aAddress);
-		void Flush();
+		unsigned int Flush();
 
 	private:
 

@@ -34,19 +34,22 @@ void Network::CClient::Start()
 	message.myName = "Joakim";
 
 	myMessageManager.CreateMessage<CNetMessageConnect>(message);
+
+	mySendPlayerDataTimer.Init(CTimedEvent::EType::Repeat, FREQ_PLAYERDATA, [this]() { SendPlayerData(); });
+	mySendPlayerDataTimer.Start();
+
+	myPingTimer.Init(CTimedEvent::EType::Repeat, FREQ_PING, [this]() { PingServer(); });
+	myPingTimer.Start();
 }
 
 void Network::CClient::Update()
 {
 	CConnectionBase::Update();
 
-	SendPlayerData();
-	myPingTimer += CTime::GetInstance().GetDeltaTime();
-	if (myPingTimer > FREQ_PING)
-	{
-		myPingTimer = 0.f;
-		PingServer();
-	}
+	float dt = CTime::GetInstance().GetDeltaTime();
+
+	mySendPlayerDataTimer.Update(dt);
+	myPingTimer.Update(dt);
 
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{

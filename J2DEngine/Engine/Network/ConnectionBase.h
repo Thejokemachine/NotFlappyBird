@@ -22,6 +22,9 @@ namespace Network
 
 		SOCKET mySocket;
 
+		unsigned int mySentThisSecond;
+		float mySentTimer;
+
 		CNetMessageManager myMessageManager;
 		std::vector<SReceivedMessage> myReceivedBuffer;
 	};
