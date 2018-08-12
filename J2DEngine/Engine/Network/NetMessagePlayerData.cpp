@@ -15,13 +15,15 @@ Network::SNetMessagePlayerDataData & Network::CNetMessagePlayerData::GetData()
 void Network::CNetMessagePlayerData::Serialize()
 {
 	CNetMessage::Serialize();
-	SERIALIZE(myBuffer, myData.myPosition);
+	SERIALIZE(myBuffer, myData.myPosition.x);
+	SERIALIZE(myBuffer, myData.myPosition.y);
 	SERIALIZE(myBuffer, myData.myRotation);
 }
 
 void Network::CNetMessagePlayerData::Deserialize()
 {
 	CNetMessage::Deserialize();
-	DESERIALIZE(myBuffer, myData.myPosition);
+	DESERIALIZE(myBuffer, myData.myPosition.x);
+	DESERIALIZE(myBuffer, myData.myPosition.y);
 	DESERIALIZE(myBuffer, myData.myRotation);
 }

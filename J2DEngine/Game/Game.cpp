@@ -99,6 +99,9 @@ void CGame::AddOtherPlayer(unsigned long aID)
 {
 	CPlayer newPlayer;
 	newPlayer.Init();
+	SColor color = newPlayer.GetSprite().GetColor();
+	color.a = 0.25f;
+	newPlayer.GetSprite().SetColor(color);
 
 	myOtherPlayers.insert(std::make_pair(aID, newPlayer));
 }
