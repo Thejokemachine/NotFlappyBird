@@ -1,8 +1,10 @@
 #include "Server.h"
 #include <string>
+#include "Utilities/Time.h"
 
 void Network::CServer::Start()
 {
+
 	PRINT("Starting up server...");
 	CConnectionBase::Start();
 
@@ -25,7 +27,13 @@ void Network::CServer::Update()
 {
 	CConnectionBase::Update();
 
-	SendPlayerData();
+	mySendDataTimer += CTime::GetInstance().GetDeltaTime();
+	if (mySendDataTimer > FREQ_PLAYERDATA)
+	{
+		mySendDataTimer = 0.f;
+		SendPlayerData();
+		PRINT("Sent player data");
+	}
 
 	for (SReceivedMessage& rec : myReceivedBuffer)
 	{
@@ -86,7 +94,6 @@ void Network::CServer::AddClient(sockaddr_in aAddress, const std::string & aName
 		SClient newClient;
 		newClient.myName = aName;
 		newClient.myID = myClients.size();
-		//newClient.mySprite.Load("sprites/player.dds");
 
 		myClients.insert(std::make_pair(ID, newClient));
 		PRINT(aName + " connected!");

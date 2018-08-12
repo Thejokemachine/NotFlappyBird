@@ -31,5 +31,7 @@ namespace Network
 		};
 
 		std::unordered_map<unsigned long, SClient> myClients;
+
+		float mySendDataTimer;
 	};
 }

@@ -13,3 +13,6 @@
 
 #define MAX_BUFFER_SIZE 512
 #define SOCKET_BUFFER_SIZE 65000
+
+#define FREQ_PLAYERDATA (1.f / 60.f)
+#define FREQ_PING		1.f

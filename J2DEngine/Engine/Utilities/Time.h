@@ -1,7 +1,6 @@
 #pragma once
 #include "Base.h"
 #include <chrono>
-#include "../Utilities/ConstantBuffer.h"
 
 class CTime : public CBase
 {
@@ -16,13 +15,14 @@ public:
 	float GetDeltaTime();
 	float GetTotalTime();
 
-private:
 	struct STimeData
 	{
 		float deltaTime;
 		float totalTime;
 		float trash[2];
 	};
+
+private:
 
 	CTime();
 
@@ -32,7 +32,5 @@ private:
 
 	std::chrono::duration<float> myDeltaTime;
 	std::chrono::duration<float> myTotalTime;
-
-	CConstantBuffer myBuffer;
 };
 

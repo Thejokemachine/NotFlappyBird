@@ -6,6 +6,7 @@
 #include "Utilities/Time.h"
 #include "Utilities/InputManager.h"
 #include "Utilities/DebugLog.h"
+#include "Utilities/ConstantBuffer.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -28,6 +29,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	CGame game;
 	CTime& timer = CTime::GetInstance();
+	CConstantBuffer timeBuffer;
 
 	if (shouldRun)
 	{
@@ -40,7 +42,8 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 		DL_WRITELOG("engine", "Console Initiated.");
 
 		game.Init();
-		CTime::GetInstance().Init();
+		timer.Init();
+		timeBuffer.Create<CTime::STimeData>();
 		CInputManager::GetInstance().Init(graphicsEngine.GetClientWindow());
 	}
 
@@ -65,7 +68,12 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		graphicsEngine.BeginFrame();
 
-		CTime::GetInstance().Update();
+		timer.Update();
+		CTime::STimeData timeData;
+		timeData.deltaTime = timer.GetDeltaTime();
+		timeData.totalTime = timer.GetTotalTime();
+		timeBuffer.Remap(TIME_SLOT, timeData);
+
 		game.Update(timer.GetDeltaTime());
 		game.Render();
 
