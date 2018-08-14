@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "PipeSpawner.h"
 #include "Network/Client.h"
+#include "SpriteNumber.h"
 
 class CGame
 {
@@ -23,6 +24,8 @@ public:
 
 private:
 
+	void HandleTilingBackgrounds(float aDT);
+
 	enum class EGameState
 	{
 		Menu,
@@ -37,11 +40,10 @@ private:
 
 	CPlayer myPlayer;
 	CPipeSpawner myPipeSpawner;
+	CSpriteNumber myScore;
 
 	std::unordered_map<unsigned long, CPlayer> myOtherPlayers;
 
 	Network::CClient myClient;
-
-	void HandleTilingBackgrounds(float aDT);
 };
 

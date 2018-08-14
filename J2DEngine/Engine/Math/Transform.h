@@ -11,7 +11,7 @@ public:
 	void Move(const CVector2f& aMovement);
 	void SetPosition(float aX, float aY);
 	void SetPosition(const CVector2f& aPosition);
-	CVector2f GetPosition();
+	CVector2f GetPosition() const;
 
 	void Rotate(float aRotation);
 	void SetRotation(float aRotation);

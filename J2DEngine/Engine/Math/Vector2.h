@@ -16,24 +16,24 @@ public:
 	static CVector2<T> Left() { return CVector2<T>(-1, 0); };
 	static CVector2<T> Zero() { return CVector2<T>(0, 0); };
 
-	T Length();
-	T Length2();
+	T Length() const;
+	T Length2() const;
 	void Normalize();
-	CVector2<T> GetNormalized();
+	CVector2<T> GetNormalized() const;
 
-	bool operator==(const CVector2<T>& aCompareVector);
-	bool operator!=(const CVector2<T>& aCompareVector);
+	bool operator==(const CVector2<T>& aCompareVector) const;
+	bool operator!=(const CVector2<T>& aCompareVector) const;
 
-	CVector2<T> operator+(const CVector2<T>& aAddVector);
+	CVector2<T> operator+(const CVector2<T>& aAddVector) const;
 	void operator+=(const CVector2<T>& aAddVector);
 
-	CVector2<T> operator-(const CVector2<T>& aSubtractVector);
+	CVector2<T> operator-(const CVector2<T>& aSubtractVector) const;
 	void operator-=(const CVector2<T>& aSubtractVector);
 
-	CVector2<T> operator*(float aScalar);
+	CVector2<T> operator*(float aScalar) const;
 	void operator*=(float aScalar);
 
-	CVector2<T> operator/(float aScalar);
+	CVector2<T> operator/(float aScalar) const;
 	void operator/=(float aScalar);
 
 	//CVector2<T> Dot(const CVector2<T>& aVector);
@@ -62,7 +62,7 @@ inline CVector2<T>::CVector2(T aX, T aY)
 }
 
 template<typename T>
-inline T CVector2<T>::Length()
+inline T CVector2<T>::Length() const
 {
 	T rv;
 	rv = sqrt(Length2());
@@ -70,7 +70,7 @@ inline T CVector2<T>::Length()
 }
 
 template<typename T>
-inline T CVector2<T>::Length2()
+inline T CVector2<T>::Length2() const
 {
 	T rv;
 	rv = (x * x) + (y * y);
@@ -84,7 +84,7 @@ inline void CVector2<T>::Normalize()
 }
 
 template<typename T>
-inline CVector2<T> CVector2<T>::GetNormalized()
+inline CVector2<T> CVector2<T>::GetNormalized() const
 {
 	CVector2<T> rv = *this;
 	rv /= rv.Length();
@@ -92,7 +92,7 @@ inline CVector2<T> CVector2<T>::GetNormalized()
 }
 
 template<typename T>
-inline bool CVector2<T>::operator==(const CVector2<T>& aCompareVector)
+inline bool CVector2<T>::operator==(const CVector2<T>& aCompareVector) const
 {
 	if (x == aCompareVector.x && y == aCompareVector.y)
 	{
@@ -105,7 +105,7 @@ inline bool CVector2<T>::operator==(const CVector2<T>& aCompareVector)
 }
 
 template<typename T>
-inline bool CVector2<T>::operator!=(const CVector2<T>& aCompareVector)
+inline bool CVector2<T>::operator!=(const CVector2<T>& aCompareVector) const
 {
 	if (this == aCompareVector)
 	{
@@ -118,7 +118,7 @@ inline bool CVector2<T>::operator!=(const CVector2<T>& aCompareVector)
 }
 
 template<typename T>
-inline CVector2<T> CVector2<T>::operator+(const CVector2<T>& aAddVector)
+inline CVector2<T> CVector2<T>::operator+(const CVector2<T>& aAddVector) const
 {
 	CVector2<T> rv = *this;
 	rv.x += aAddVector.x;
@@ -133,7 +133,7 @@ inline void CVector2<T>::operator+=(const CVector2<T>& aAddVector)
 }
 
 template<typename T>
-inline CVector2<T> CVector2<T>::operator-(const CVector2<T>& aSubtractVector)
+inline CVector2<T> CVector2<T>::operator-(const CVector2<T>& aSubtractVector) const
 {
 	CVector2<T> rv = *this;
 	rv.x -= aSubtractVector.x;
@@ -148,7 +148,7 @@ inline void CVector2<T>::operator-=(const CVector2<T>& aSubtractVector)
 }
 
 template<typename T>
-inline CVector2<T> CVector2<T>::operator*(float aScalar)
+inline CVector2<T> CVector2<T>::operator*(float aScalar) const
 {
 	CVector2<T> rv = *this;
 	rv.x *= aScalar;
@@ -163,7 +163,7 @@ inline void CVector2<T>::operator*=(float aScalar)
 }
 
 template<typename T>
-inline CVector2<T> CVector2<T>::operator/(float aScalar)
+inline CVector2<T> CVector2<T>::operator/(float aScalar) const
 {
 	CVector2<T> rv = *this;
 	rv.x /= aScalar;

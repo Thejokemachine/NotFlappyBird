@@ -125,11 +125,13 @@
     <ClInclude Include="LayerSpeeds.h" />
     <ClInclude Include="PipeSpawner.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SpriteNumber.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PipeSpawner.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SpriteNumber.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

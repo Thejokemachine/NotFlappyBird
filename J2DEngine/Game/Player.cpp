@@ -16,11 +16,16 @@ void CPlayer::Init()
 	mySprite.Load("sprites/player.dds");
 	mySprite.SetPosition(300.f, 450.f);
 	mySprite.SetScale({ 0.5f, 1 });
+	myCollider.SetPosition(mySprite.GetPosition());
+	myCollider.SetRadius(40.f);
+	myInvincibleTimer = 0.f;
 }
 
 void CPlayer::Update(float aDT)
 {
 	HandleAnimation(aDT);
+
+	myInvincibleTimer += aDT;
 
 	CInputManager& input = CInputManager::GetInstance();
 
@@ -41,6 +46,8 @@ void CPlayer::Update(float aDT)
 	{
 		mySprite.SetPosition(mySprite.GetPosition().x, 1000.f);
 	}
+
+	myCollider.SetPosition(mySprite.GetPosition());
 }
 
 void CPlayer::Render()
@@ -48,9 +55,27 @@ void CPlayer::Render()
 	mySprite.Render();
 }
 
+void CPlayer::Die()
+{
+	if (myInvincibleTimer > 1.f)
+	{
+		myInvincibleTimer = 0.f;
+		mySprite.SetPosition(300.f, 450.f);
+		myCollider.SetPosition(mySprite.GetPosition());
+		myFallSpeed = 0.f;
+		myRotation = 0.f;
+		PRINT("You died! :(");
+	}
+}
+
 CSprite & CPlayer::GetSprite()
 {
 	return mySprite;
+}
+
+CCircleCollider & CPlayer::GetCollider()
+{
+	return myCollider;
 }
 
 void CPlayer::HandleAnimation(float aDT)

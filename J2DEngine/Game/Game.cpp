@@ -28,6 +28,11 @@ void CGame::Init()
 
 	myClient.Start();
 	myClient.BindGame(*this);
+
+	myScore.Load("sprites/numbers.dds");
+	myScore.Set(0);
+	myScore.SetPosition(1400, 420);
+	myScore.SetColor(SColor(1.f,0.f,0.7f,1.f));
 }
 
 void CGame::Update(float aDT)
@@ -47,6 +52,16 @@ void CGame::Update(float aDT)
 		HandleTilingBackgrounds(aDT);
 		myPlayer.Update(aDT);
 		myPipeSpawner.Update(aDT);
+		if (myPipeSpawner.PassedThroughPipe(myPlayer.GetSprite().GetPosition()))
+		{
+			myScore.Increment(1);
+		}
+
+		if (myPipeSpawner.CollidedWithPipe(myPlayer.GetCollider()))
+		{
+			myScore.Set(0);
+			myPlayer.Die();
+		}
 
 		for (auto& spritePairs : myOtherPlayers)
 		{
@@ -76,6 +91,7 @@ void CGame::Render()
 	case CGame::EGameState::InGame:
 		myPlayer.Render();
 		myPipeSpawner.Render();
+		myScore.Render();
 
 		for (auto& spritePairs : myOtherPlayers)
 		{

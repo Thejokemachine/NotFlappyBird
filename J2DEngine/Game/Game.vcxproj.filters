@@ -27,6 +27,9 @@
     <ClInclude Include="LayerSpeeds.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -36,6 +39,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PipeSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteNumber.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

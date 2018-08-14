@@ -2,7 +2,7 @@
 
 #define MAX(a, b) ((a) < (b)) ? (b) : (a)
 #define MIN(a, b) ((a) < (b)) ? (a) : (b)
-#define CLAMP(a, minimum, maximum) (((a) < (minimum)) ? (((a) > (maximum)) ? (a) : (minimum)) : (a))
+#define CLAMP(a, minimum, maximum) a < minimum ? minimum : (a > maximum ? maximum : a)
 
 
 namespace Math

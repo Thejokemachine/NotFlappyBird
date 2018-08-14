@@ -122,6 +122,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Collision\CircleCollider.cpp" />
+    <ClCompile Include="Collision\Collider.cpp" />
+    <ClCompile Include="Collision\PointCollider.cpp" />
+    <ClCompile Include="Collision\RectangleCollider.cpp" />
     <ClCompile Include="Network\Client.cpp" />
     <ClCompile Include="Network\ConnectionBase.cpp" />
     <ClCompile Include="Network\NetMessage.cpp" />
@@ -154,6 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Collision\CircleCollider.h" />
+    <ClInclude Include="Collision\Collider.h" />
+    <ClInclude Include="Collision\PointCollider.h" />
+    <ClInclude Include="Collision\RectangleCollider.h" />
     <ClInclude Include="Engine\ShaderTypes.h" />
     <ClInclude Include="Network\Client.h" />
     <ClInclude Include="Network\NetMessagePosition.h" />

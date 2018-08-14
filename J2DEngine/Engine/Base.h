@@ -1,5 +1,8 @@
 #pragma once
 #include <string>
+#include <iostream>
+
+#define PRINT(text) std::cout << (text) << std::endl
 
 class CBase
 {

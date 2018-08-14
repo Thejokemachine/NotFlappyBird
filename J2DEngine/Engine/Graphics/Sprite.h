@@ -17,7 +17,7 @@ public:
 	~CSprite();
 
 	void Load(const std::string& aFilePath);
-	void Render();
+	virtual void Render();
 
 	void SetColor(SColor aColor);
 	SColor GetColor();

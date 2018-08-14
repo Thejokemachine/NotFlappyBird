@@ -33,7 +33,7 @@ void CTransform::SetPosition(const CVector2f & aPosition)
 	myPosition = aPosition;
 }
 
-CVector2f CTransform::GetPosition()
+CVector2f CTransform::GetPosition() const
 {
 	return myPosition;
 }
