@@ -11,6 +11,5 @@ public:
 
 	bool Init(CDirectXFramework* aFramework) override;
 	void Render(std::vector<SSpriteRenderCommand>& aSpritesToRender);
-
 };
 

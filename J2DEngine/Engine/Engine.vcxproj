@@ -163,6 +163,8 @@
     <ClInclude Include="Collision\PointCollider.h" />
     <ClInclude Include="Collision\RectangleCollider.h" />
     <ClInclude Include="Engine\ShaderTypes.h" />
+    <ClInclude Include="Graphics\Renderer.h" />
+    <ClInclude Include="Graphics\SpriteBatchRenderer.h" />
     <ClInclude Include="Network\Client.h" />
     <ClInclude Include="Network\NetMessagePosition.h" />
     <ClInclude Include="Network\CommonNetworkIncludes.h" />

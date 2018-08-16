@@ -89,7 +89,6 @@ void CGame::Render()
 	case CGame::EGameState::Menu:
 		break;
 	case CGame::EGameState::InGame:
-		myPlayer.Render();
 		myPipeSpawner.Render();
 		myScore.Render();
 
@@ -97,6 +96,7 @@ void CGame::Render()
 		{
 			spritePairs.second.Render();
 		}
+		myPlayer.Render();
 
 		break;
 	case CGame::EGameState::Paused:

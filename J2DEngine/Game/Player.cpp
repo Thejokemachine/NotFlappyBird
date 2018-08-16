@@ -19,25 +19,34 @@ void CPlayer::Init()
 	myCollider.SetPosition(mySprite.GetPosition());
 	myCollider.SetRadius(40.f);
 	myInvincibleTimer = 0.f;
+	myShouldPlayDeathAnimation = false;
 }
 
 void CPlayer::Update(float aDT)
 {
-	HandleAnimation(aDT);
-
-	myInvincibleTimer += aDT;
-
-	CInputManager& input = CInputManager::GetInstance();
-
-	if (input.IsKeyPressed(EKeyCode::Space) && mySprite.GetPosition().y > 0)
+	if (myShouldPlayDeathAnimation == false)
 	{
-		myFallSpeed = -1500.f;
-		myRotation = -1.f;
+		HandleAnimation(aDT);
+
+		myInvincibleTimer += aDT;
+
+		CInputManager& input = CInputManager::GetInstance();
+
+		if (input.IsKeyPressed(EKeyCode::Space) && mySprite.GetPosition().y > 0)
+		{
+			Jump(1500.f);
+		}
+
+		myRotation = Math::Lerp(myRotation, 1.57f, aDT / 1.f);
+
+	}
+	else
+	{
+		myRotation -= 1.5f * aDT;
 	}
 
 	myFallSpeed += 4000.f * aDT;
 	myFallSpeed = Math::Min(myFallSpeed, 4000.f);
-	myRotation = Math::Lerp(myRotation, 1.57f, aDT / 1.f);
 
 	mySprite.Move(0.f, myFallSpeed * aDT);
 	mySprite.SetRotation(myRotation);
@@ -45,6 +54,11 @@ void CPlayer::Update(float aDT)
 	if (mySprite.GetPosition().y > 1000.f)
 	{
 		mySprite.SetPosition(mySprite.GetPosition().x, 1000.f);
+
+		if (myShouldPlayDeathAnimation)
+		{
+			Respawn();
+		}
 	}
 
 	myCollider.SetPosition(mySprite.GetPosition());
@@ -59,13 +73,20 @@ void CPlayer::Die()
 {
 	if (myInvincibleTimer > 1.f)
 	{
+		Jump(1250.f);
 		myInvincibleTimer = 0.f;
-		mySprite.SetPosition(300.f, 450.f);
-		myCollider.SetPosition(mySprite.GetPosition());
-		myFallSpeed = 0.f;
-		myRotation = 0.f;
+		myShouldPlayDeathAnimation = true;
 		PRINT("You died! :(");
 	}
+}
+
+void CPlayer::Respawn()
+{
+	mySprite.SetPosition(300.f, 450.f);
+	myCollider.SetPosition(mySprite.GetPosition());
+	myFallSpeed = 0.f;
+	myRotation = 0.f;
+	myShouldPlayDeathAnimation = false;
 }
 
 CSprite & CPlayer::GetSprite()
@@ -96,4 +117,10 @@ void CPlayer::HandleAnimation(float aDT)
 	{
 		mySprite.SetTextureRect({ 0.5f, 0 }, { 1.f, 1.f });
 	}
+}
+
+void CPlayer::Jump(float aForce)
+{
+	myFallSpeed = -aForce;
+	myRotation = -1.f;
 }

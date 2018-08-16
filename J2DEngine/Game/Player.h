@@ -13,6 +13,7 @@ public:
 	void Render();
 
 	void Die();
+	void Respawn();
 
 	CSprite& GetSprite();
 	CCircleCollider& GetCollider();
@@ -20,6 +21,9 @@ public:
 	void HandleAnimation(float aDT);
 
 private:
+
+	void Jump(float aForce);
+
 	CSprite mySprite;
 	float myFallSpeed;
 	float myRotation;
@@ -29,5 +33,6 @@ private:
 
 	CCircleCollider myCollider;
 	float myInvincibleTimer;
+	bool myShouldPlayDeathAnimation;
 };
 
