@@ -20,6 +20,7 @@ void Network::CClient::Start()
 	}
 
 	std::string serverIP = "88.83.34.36";
+	serverIP = "127.0.0.1";
 	unsigned short port = 54000;
 
 	inet_pton(AF_INET, serverIP.c_str(), &myServerAddress.sin_addr.s_addr);
