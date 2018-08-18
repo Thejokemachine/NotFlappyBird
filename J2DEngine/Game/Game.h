@@ -4,6 +4,7 @@
 #include "PipeSpawner.h"
 #include "Network/Client.h"
 #include "SpriteNumber.h"
+#include "Graphics/ParticleEmitter.h"
 
 class CGame
 {
@@ -41,6 +42,8 @@ private:
 	CPlayer myPlayer;
 	CPipeSpawner myPipeSpawner;
 	CSpriteNumber myScore;
+
+	CParticleEmitter myEmitter;
 
 	std::unordered_map<unsigned long, CPlayer> myOtherPlayers;
 

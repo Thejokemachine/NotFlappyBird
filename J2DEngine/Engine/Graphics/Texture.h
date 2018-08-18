@@ -9,6 +9,7 @@ class CTexture : CBase
 {
 	friend class CTextureLoader;
 	friend class CSpriteRenderer;
+	friend class CSpriteBatchRenderer;
 
 public:
 	CTexture();

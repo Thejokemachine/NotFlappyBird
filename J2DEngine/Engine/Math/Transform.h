@@ -15,12 +15,12 @@ public:
 
 	void Rotate(float aRotation);
 	void SetRotation(float aRotation);
-	float GetRotation();
+	float GetRotation() const;
 
 	void Scale(float aScalar);
 	void SetScale(float aScale);
 	void SetScale(const CVector2f& aScale);
-	CVector2f GetScale();
+	CVector2f GetScale() const;
 
 private:
 

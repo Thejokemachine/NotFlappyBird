@@ -126,6 +126,9 @@
     <ClCompile Include="Collision\Collider.cpp" />
     <ClCompile Include="Collision\PointCollider.cpp" />
     <ClCompile Include="Collision\RectangleCollider.cpp" />
+    <ClCompile Include="Graphics\ParticleEmitter.cpp" />
+    <ClCompile Include="Graphics\SpriteBatch.cpp" />
+    <ClCompile Include="Graphics\SpriteBatchRenderer.cpp" />
     <ClCompile Include="Network\Client.cpp" />
     <ClCompile Include="Network\ConnectionBase.cpp" />
     <ClCompile Include="Network\NetMessage.cpp" />
@@ -153,6 +156,7 @@
     <ClCompile Include="Utilities\InputManager.cpp" />
     <ClCompile Include="SmallString.cpp" />
     <ClCompile Include="Math\Transform.cpp" />
+    <ClCompile Include="Utilities\Randomizer.cpp" />
     <ClCompile Include="Utilities\Time.cpp" />
     <ClCompile Include="Utilities\TimedEvent.cpp" />
   </ItemGroup>
@@ -162,8 +166,11 @@
     <ClInclude Include="Collision\Collider.h" />
     <ClInclude Include="Collision\PointCollider.h" />
     <ClInclude Include="Collision\RectangleCollider.h" />
+    <ClInclude Include="Engine\Limits.h" />
     <ClInclude Include="Engine\ShaderTypes.h" />
+    <ClInclude Include="Graphics\ParticleEmitter.h" />
     <ClInclude Include="Graphics\Renderer.h" />
+    <ClInclude Include="Graphics\SpriteBatch.h" />
     <ClInclude Include="Graphics\SpriteBatchRenderer.h" />
     <ClInclude Include="Network\Client.h" />
     <ClInclude Include="Network\NetMessagePosition.h" />
@@ -208,6 +215,7 @@
     <ClInclude Include="SmallString.h" />
     <ClInclude Include="Math\Transform.h" />
     <ClInclude Include="Utilities\KeyCodes.h" />
+    <ClInclude Include="Utilities\Randomizer.h" />
     <ClInclude Include="Utilities\Time.h" />
     <ClInclude Include="Utilities\TimedEvent.h" />
   </ItemGroup>

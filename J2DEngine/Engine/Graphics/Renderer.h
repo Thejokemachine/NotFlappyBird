@@ -14,8 +14,6 @@ struct ID3D11InputLayout;
 
 struct ID3D11BlendState;
 
-struct SSpriteRenderCommand;
-
 class CDirectXFramework;
 class CSprite;
 

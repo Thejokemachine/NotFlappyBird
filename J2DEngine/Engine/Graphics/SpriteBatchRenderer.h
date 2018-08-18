@@ -3,13 +3,15 @@
 #include "Renderer.h"
 #include <vector>
 
-class CSpriteRenderer : public CRenderer, public CBase
+struct SSpriteBatchRenderCommand;
+
+class CSpriteBatchRenderer : public CRenderer, public CBase
 {
 public:
-	CSpriteRenderer();
-	~CSpriteRenderer();
+	CSpriteBatchRenderer();
+	~CSpriteBatchRenderer();
 
 	bool Init(CDirectXFramework* aFramework) override;
-	void Render(std::vector<SSpriteRenderCommand>& aSpritesToRender);
+	void Render(std::vector<SSpriteBatchRenderCommand>& aSpritesToRender);
 };
 

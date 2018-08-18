@@ -27,6 +27,11 @@ bool CGraphicsEngine::Init(const CWindowHandler::SWindowData & aWindowData)
 		return false;
 	}
 
+	if (mySpriteBatchRenderer.Init(&myFramework) == false)
+	{
+		return false;
+	}
+
 	if (myScene.Init() == false)
 	{
 		return false;
@@ -53,6 +58,7 @@ bool CGraphicsEngine::RenderFrame()
 	//myScene.Cull();
 
 	mySpriteRenderer.Render(myScene.GetSpriteBuffer());
+	mySpriteBatchRenderer.Render(myScene.GetSpriteBatchBuffer());
 
 	return true;
 }

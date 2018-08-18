@@ -3,6 +3,8 @@
 #include "Renderer.h"
 #include <vector>
 
+struct SSpriteRenderCommand;
+
 class CSpriteRenderer : public CRenderer, public CBase
 {
 public:

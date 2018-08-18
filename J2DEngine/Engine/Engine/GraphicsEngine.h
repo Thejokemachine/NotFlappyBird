@@ -4,6 +4,7 @@
 #include "DirectXFramework.h"
 #include "Scene.h"
 #include "Graphics/SpriteRenderer.h"
+#include "Graphics/SpriteBatchRenderer.h"
 
 class CGraphicsEngine : CBase
 {
@@ -27,5 +28,6 @@ private:
 
 	CScene myScene;
 	CSpriteRenderer mySpriteRenderer;
+	CSpriteBatchRenderer mySpriteBatchRenderer;
 };
 

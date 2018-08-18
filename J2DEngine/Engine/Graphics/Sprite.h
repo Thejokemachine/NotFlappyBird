@@ -8,6 +8,7 @@
 
 class CScene;
 class CShader;
+struct SSpriteRenderCommand;
 
 class CSprite : public CBase, public CTransform
 {
@@ -20,14 +21,15 @@ public:
 	virtual void Render();
 
 	void SetColor(SColor aColor);
-	SColor GetColor();
+	SColor GetColor() const;
 
-	CVector2f GetDimensions();
+	CVector2f GetDimensions() const;
 
 	void SetTextureRect(const CVector2f& aTopLeft, const CVector2f& aBottomRight);
-	SUVRect GetTextureRect();
+	SUVRect GetTextureRect() const;
 
-	CTexture GetTexture();
+	CTexture GetTexture() const;
+	SSpriteRenderCommand GetRenderCommand() const;
 
 	void SetShader(const CShader& aShader);
 

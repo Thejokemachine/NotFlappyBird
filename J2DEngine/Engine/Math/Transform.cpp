@@ -48,7 +48,7 @@ void CTransform::SetRotation(float aRotation)
 	myRotation = aRotation;
 }
 
-float CTransform::GetRotation()
+float CTransform::GetRotation() const
 {
 	return myRotation;
 }
@@ -68,7 +68,7 @@ void CTransform::SetScale(const CVector2f & aScale)
 	myScale = aScale;
 }
 
-CVector2f CTransform::GetScale()
+CVector2f CTransform::GetScale() const
 {
 	return myScale;
 }

@@ -18,7 +18,9 @@ public:
 	void Start();
 	void Stop();
 	void Restart();
+
 	void SetType(EType aType);
+	void SetDuration(float aDuration);
 
 private:
 	std::function<void()> myCallback;

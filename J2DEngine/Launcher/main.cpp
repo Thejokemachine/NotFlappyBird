@@ -7,6 +7,7 @@
 #include "Utilities/InputManager.h"
 #include "Utilities/DebugLog.h"
 #include "Utilities/ConstantBuffer.h"
+#include "Utilities/Randomizer.h"
 
 int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -30,6 +31,7 @@ int WINAPI wWinMain(_In_ HINSTANCE hIntance, _In_opt_ HINSTANCE hPrevInstance, _
 	CGame game;
 	CTime& timer = CTime::GetInstance();
 	CConstantBuffer timeBuffer;
+	CRandomizer::Init();
 
 	if (shouldRun)
 	{

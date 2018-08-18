@@ -7,7 +7,6 @@
 
 namespace Math
 {
-
 	template<typename T>
 	T Max(T aValue0, T aValue1)
 	{
@@ -29,5 +28,15 @@ namespace Math
 	static float Lerp(float aLerpFrom, float aLerpTo, float aInterpolation)
 	{
 		return (aLerpFrom + aInterpolation * (aLerpTo - aLerpFrom));
+	}
+
+	static SColor Lerp(SColor aLerpFrom, SColor aLerpTo, float aInterpolation)
+	{
+		SColor rv;
+		rv.r = (aLerpFrom.r + aInterpolation * (aLerpTo.r - aLerpFrom.r));
+		rv.g = (aLerpFrom.g + aInterpolation * (aLerpTo.g - aLerpFrom.g));
+		rv.b = (aLerpFrom.b + aInterpolation * (aLerpTo.b - aLerpFrom.b));
+		rv.a = (aLerpFrom.a + aInterpolation * (aLerpTo.a - aLerpFrom.a));
+		return rv;
 	}
 }

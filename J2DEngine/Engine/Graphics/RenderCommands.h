@@ -13,4 +13,12 @@ struct SSpriteRenderCommand
 	CVector2f dimensions;
 	CVector2f scale;
 	CTexture texture;
+
+	bool shouldRender;
+};
+
+struct SSpriteBatchRenderCommand
+{
+	SSpriteRenderCommand* sprites;
+	int amount;
 };

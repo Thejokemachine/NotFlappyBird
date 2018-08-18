@@ -33,6 +33,29 @@ void CGame::Init()
 	myScore.Set(0);
 	myScore.SetPosition(1400, 420);
 	myScore.SetColor(SColor(1.f,0.f,0.7f,1.f));
+
+	myEmitter.Load("sprites/numbers.dds");
+	CParticleEmitter::SEmitterSettings settings = myEmitter.GetSettings();
+	settings.myDelay = {0.001f, 0.001f};
+	settings.myStartColor = Colors::White;
+	settings.myEndColor = Colors::Red;
+	settings.mySpreadAngle = 6.28f;
+	settings.mySpeed = { 500.f, 500.f };
+	settings.myRotation = { 0.f, 6.28f };
+	settings.myLifetime = { 1.f, 1.f };
+	settings.myRotationSpeed = { -10.57f, 10.57f };
+	settings.myScale = { 0.5f, 2.f };
+	settings.myStartScale = 0.5f;
+	settings.myEndScale = 3.f;
+	for (int i = 0; i < 10; ++i)
+	{
+		settings.myPossibleTexRects.push_back({{i / 10.f, 0.f}, {((i + 1) / 10.f), 1.f}});
+	}
+
+	myEmitter.SetSettings(settings);
+	myEmitter.SetPosition(800.f, 450.f);
+	myEmitter.SetRotation(-1.57f);
+	myEmitter.Start();
 }
 
 void CGame::Update(float aDT)
@@ -47,6 +70,8 @@ void CGame::Update(float aDT)
 	switch (myGameState)
 	{
 	case CGame::EGameState::Menu:
+		myEmitter.Update(aDT);
+		myEmitter.Rotate(6.28f * aDT);
 		break;
 	case CGame::EGameState::InGame:
 		HandleTilingBackgrounds(aDT);
@@ -87,6 +112,7 @@ void CGame::Render()
 	switch (myGameState)
 	{
 	case CGame::EGameState::Menu:
+		myEmitter.Render();
 		break;
 	case CGame::EGameState::InGame:
 		myPipeSpawner.Render();

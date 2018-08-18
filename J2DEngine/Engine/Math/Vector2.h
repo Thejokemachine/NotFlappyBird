@@ -36,6 +36,8 @@ public:
 	CVector2<T> operator/(float aScalar) const;
 	void operator/=(float aScalar);
 
+	void operator=(T aValue);
+
 	//CVector2<T> Dot(const CVector2<T>& aVector);
 	//CVector2<T> Cross(const CVector2<T>& aVector);
 
@@ -175,6 +177,13 @@ template<typename T>
 inline void CVector2<T>::operator/=(float aScalar)
 {
 	*this = *this / aScalar;
+}
+
+template<typename T>
+inline void CVector2<T>::operator=(T aValue)
+{
+	x = aValue;
+	y = aValue;
 }
 
 //template<typename T>

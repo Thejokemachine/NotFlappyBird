@@ -50,3 +50,8 @@ void CTimedEvent::SetType(EType aType)
 {
 	myType = aType;
 }
+
+void CTimedEvent::SetDuration(float aDuration)
+{
+	myDuration = aDuration;
+}
